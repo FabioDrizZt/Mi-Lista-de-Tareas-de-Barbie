@@ -1,14 +1,14 @@
 const tasks = [
-  "Preparar un desfile de moda",
-  "Cuidar a sus mascotas",
-  "Hacer ejercicio en su gimnasio",
-  "Ir de compras para actualizar su guardarropa",
-  "Estudiar para su próxima aventura",
-  "Ayudar a su comunidad en proyectos voluntarios",
-  "Organizar una fiesta de cumpleaños",
-  "Diseñar ropa y accesorios",
-  "Viajar por el mundo en su jet privado",
-  "Participar en competencias deportivas",
+  {nombre: "Preparar un desfile de moda", completada: false},
+  {nombre: "Cuidar a sus mascotas", completada:false},
+  {nombre: "Hacer ejercicio en su gimnasio", completada:false},
+  {nombre: "Ir de compras para actualizar su guardarropa", completada:false},
+  {nombre: "Estudiar para su próxima aventura", completada:false},
+  {nombre: "Ayudar a su comunidad en proyectos voluntarios", completada:false},
+  {nombre: "Organizar una fiesta de cumpleaños", completada:false},
+  {nombre: "Diseñar ropa y accesorios", completada:false},
+  {nombre: "Viajar por el mundo en su jet privado", completada:false},
+  {nombre: "Participar en competencias deportivas", completada:false},
 ];
 const taskInput = document.querySelector("#taskInput");
 const addButton = document.querySelector("#addButton");
@@ -21,7 +21,7 @@ const showTasks = (lista = tasks) => {
     // cargamos la lista de tareas con el array
     const li = document.createElement("li");
     li.innerHTML = `
-      <span>${task}</span>
+      <span>${task.nombre}</span>
       <div>
         <button onclick="editTask(${index})">🖊</button>
         <button onclick="removeTask(${index})">❌</button>
@@ -32,9 +32,9 @@ const showTasks = (lista = tasks) => {
 
 const editTask = (index) => {
   //funcion que nos permite editar las tareas del usuario
-  const nuevoTexto = prompt("Editar tarea", tasks[index]).trim();
+  const nuevoTexto = prompt("Editar tarea", tasks[index].nombre).trim();
   if (nuevoTexto == "") return alert("Tarea vacia");
-  tasks[index] = nuevoTexto;
+  tasks[index].nombre = nuevoTexto;
   showTasks();
 };
 
@@ -55,11 +55,13 @@ const addTask = () => {
 const searchTasks = () => {
   //buscamos las palabras que ingresen en nuestro input
   const filteredTasks = tasks.filter((task) =>
-    task.toLowerCase().includes(searchInput.value.toLowerCase())
+    task.nombre.toLowerCase().includes(searchInput.value.toLowerCase())
   );
   showTasks(filteredTasks);
 };
 
-addButton.addEventListener("click", addTask);
-searchInput.addEventListener("input", searchTasks);
-showTasks();
+window.addEventListener("DOMContentLoaded", () => {
+  addButton.addEventListener("click", addTask);
+  searchInput.addEventListener("input", searchTasks);
+  showTasks();
+});
